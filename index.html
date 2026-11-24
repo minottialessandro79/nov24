@@ -5,242 +5,166 @@
 	<title>Assistenza telefoni</title>
 	<style>
 		body {
-			font-family: Arial;
-			background-color: white;
-			margin: 30px;
+		    background-color: white;
+		    font-family: Arial, sans-serif;
 		}
-		
-		h2 {
-			text-align: center;
+
+		#contenitore {
+		    display: flex;
+		    justify-content: center;
+		    width: 100%;
 		}
-		
-		#form-container {
-			width: 650px;
-			margin: auto;
-			background-color: gray;
-			padding: 25px;
-			border: 1px solid gray;
+
+		#form {
+		    text-align: center;
 		}
-		
-		label {
-			display: block;
-			margin-top: 12px;
-			font-weight: bold;
+
+		#tabelle {
+		    display: flex;
+		    justify-content: center;
 		}
-		
-		input, select, textarea {
-			width: 100%;
-			padding: 8px;
-			margin-top: 5px;
-			box-sizing: border-box;
-			font-size: 15px;
-		}
-		textarea {
-			height: 80px;
-			resize: vertical;
-		}
-		
-		button {
-			display: block;
-			margin: 20px auto;
-			padding: 10px 25px;
-			font-size: 16px;
-			cursor: pointer;
-		}
-		
-		#ricevuta {
-			width: 95%;
-			max-width: 980px;
-			margin: auto;
-			background-color: white;
-		}
-		
+
 		table {
-			width: 100%;
-			border-collapse: collapse;
-			font-size: 25px;
+		    border-collapse: collapse;
 		}
-		
+
 		th {
-			background-color: black;
-			color: white;
-			padding: 15px;
-			text-align: center;
+		    display: flex;
+		    flex-direction: column;
+		    align-items: center;
+		    padding: 10px;
+		    font-weight: normal;
+		    gap: 6px;
 		}
-		
-		td {
-			border: 1px solid black;
-			padding: 8px 12px;
-			vertical-align: top;
+
+		.casella {
+		    width: 250px;
+		    box-sizing: border-box;
+		    padding: 8px;
 		}
-		
-		#torna {
-			text-align: center;
-			margin-top: 35px;
+
+		textarea.casella {
+		    resize: vertical;
 		}
-		
-		#torna button {
-			margin: auto;
-		}
-		
-		.nascosto {
-			display: none;
-		}
-		
 	</style>
 </head>
 <body>
-	<div id="form-container">
-		
-		<h2>Centro Assistenza Telefoni</h2>
-		
-		<form id="modulo">
-			
-			<label>Nome</label>
-			<input type="text" id="nome" required />
-			
-			<label>Cognome</label>
-			<input type="text" id="cognome" required />
-
-			<label>Codice fiscale</label>
-			<input type="text" id="codice" required />
-			
-			<label>Città</label>
-			<input type="text" id="citta" required />
-
-			<label>Gestore telefonico</label>
-			<select id="gestore" required>
-				<option value="">Seleziona un gestore</option>
-				<option>TIM</option>
-				<option>Vodafone</option>
-				<option>WindTre</option>
-				<option>Iliad</option>
-				<option>Fastweb</option>
-				<option>Altro</option>
-			</select>
-			
-			<label>Numero di telefono dispositivi</label>
-			<input type="tel" id="telefono" maxlength="10" required>
-			
-			<label>Marca distributori</label>
-			<select id="marca" required>
-				<option value="">Seleziona la marca</option>
-				<option>Samsung</option>
-				<option>Apple</option>
-				<option>Xiaomi</option>
-				<option>Huawei</option>
-				<option>Motorola</option>
-				<option>OPPO</option>
-				<option>Altro</option>
-			</select>
-			
-			<label>Modello di dispositivo</label>
-			<input type="text" id="modello" required>
-			
-			<label>Breve descrizione del problema</label>
-			<textarea id="problema" required></textarea>
-			
-			<label>Recapito di contatto (se diverso dal numero del dispositivo in riparazione)</label>
-			<input type="tel" id="contatto" maxlength="10">
-			
-			<button type="button" onclick="generaRicevuta()">Genera ricevuta</button>
-		</form>
-	</div>
-	
-	<div id="ricevuta" class="nascosto">
+	<div id="contenitore">
+	<form id="form" name="tabella" method="post" action="#">
+	<div id="tabelle">
 		<table>
-			
-			<tr>
-				<th colspan="2">
-					Ri-Generation - Via Pavoncelli 118, Bari<br />
-					Ricevuta di consegna
-				</th>
-			</tr>
-			<tr>
-				<td>Nome</td>
-				<td id="r-nome"></td>
-			</tr>
-			<tr>
-				<td>Cognome</td>
-				<td id="r-cognome"></td>
-			</tr>
-			<tr>
-				<td>>Codice fiscale</td>
-				<td id="r-codice"></td>
-			</tr>
-			<tr>
-				<td>Città</td>
-				<td id="r-citta"></td>
-			</tr>
-			<tr>
-				<td>Gestore telefonico</td>
-				<td id="r-gestore"></td>
-			</tr>
-			<tr>
-				<td>Numero di telefono dispositivo</td>
-				<td id="r-telefono"></td>
-			</tr>
-			<tr>
-				<td>Marca dispositivo</td>
-				<td id="r-marca"></td>
-			</tr>
-			<tr>
-				<td>Modello dispositivo</td>
-				<td id="r-modello"></td>
-			</tr>
-			<tr>
-				<td>Breve descrizione del problema</td>
-				<td id="r-problema"></td>
-			</tr>
-			<tr>
-				<td>Recapito di contatto (se diverso dal numero del dispositivo in riparazione)</td>
-				<td id="r-contatto"></td>
-			</tr>
-		</table>
-		<div id="torna">
-			<button onclick="tornaAlForm()">Torna al form</button>
-			<button onclick="window.print()">Stampa ricevuta</button>
-		</div>
+		<tr>
+			<th>Nome<input id="nome" type="text" class="casella" tabindex="1" size="15" required/></th>
+		</tr>
+		<tr>
+			<th>Cognome<input id="cognome" type="text" class="casella" tabindex="2" size="15" required/></th>
+		</tr>
+		<tr>
+			<th>Codice fiscale<input id="codice" type="text" class="casella" tabindex="3" size="15" maxlength="16" required/></th>
+		</tr>
+		<tr>
+			<th>Città<input id="citta" type="text" class="casella" tabindex="4" size="15" required/></th>
+		</tr>
+		<tr>
+			<th>Gestore telefonico
+				<select id="gestore" class="casella">
+					<option>Scegli</option>
+					<option>TIM</option>
+					<option>Vodafone</option>
+					<option>WindTre</option>
+					<option>Iliad</option>
+				</select></th>
+		</tr>
+		<tr>
+			<th>Numero di telefono dispositivo<input id="tel" type="tel" class="casella" tabindex="6" size="15" required/></th>
+		</tr>
+		<tr>
+			<th>Marca dispositivo<input id="marca" type="text" class="casella" tabindex="7" size="15" required/></th>
+		</tr>
+		<tr>
+			<th>Modello dispositivo<input id="modello" type="text" class="casella" tabindex="8" size="15" required/></th>
+		</tr>
+		<tr>
+			<th>Breve descrizione del problema<textarea class="casella" id="descrizione" rows="5" cols="20"required></textarea></th>
+		</tr>
+		<tr>
+			<th>Recapito di contatto (se diverso dal numero del dispositivo in riparazione)<input id="contatto" type="tel" class="casella" tabindex="6" size="15"></th>
+		</tr>
+	</table>
 	</div>
-	<script>
-		function generaRicevuta() {
-			let form = document.getElementById("modulo");
-			
-		}
-		
-		let nome = document.getElementById("nome").value;
-		let cognome = document.getElementById("cognome").value;
-		let codice = document.getElementById("codice").value;
-		let citta = document.getElementById("citta").value;
-		let gestore = document.getElementById("gestore").value;
-		let telefono = document.getElementById("telefono").value;
-		let marca = document.getElementById("marca").value;
-		let modello = document.getElementById("modello").value;
-		let problema = document.getElementById("problema").value;
-		let contatto = document.getElementById("contatto").value;
-		
-		if (contatto.trim() === "") {
-			contatto = telefono;
-		}
-		
-		document.getElementById("r-nome").textContent = nome;
-		document.getElementById("r-cognome").textContent = cognome;
-		document.getElementById("r-codice").textContent = codice;
-		document.getElementById("r-citta").textContent = citta;
-		document.getElementById("r-gestore").textContent = gestore;
-		document.getElementById("r-telefono").textContent = telefono;
-		document.getElementById("r-marca").textContent = marca;
-		document.getElementById("r-modello").textContent = modello;
-		document.getElementById("r-problema").textContent = problema;
-		document.getElementById("r-contatto").textContent = contatto;
-		
-		document.getElementById("form-container").addEventListener.add("nascosto");
-		document.getElementById("ricevuta").addEventListener.remove("nascosto");
-		
-		function tornaAlform() {
-			document.getElementById("ricevuta").addEventListener.add("nascosto");
-			document.getElementById("modulo").reset();
-		}
-	</script>
+		<input class="casella" type="submit" value="Genera ricevuta">
+</form>
+<div id="ricevuta" style="display:none;">
+
+<h2>RICEVUTA DI CONSEGNA</h2>
+
+<table border="1" cellpadding="10">
+
+    <tr>
+        <td>Nome</td>
+        <td id="r_nome"></td>
+    </tr>
+
+    <tr>
+        <td>Cognome</td>
+        <td id="r_cognome"></td>
+    </tr>
+
+    <tr>
+        <td>Codice fiscale</td>
+        <td id="r_codice"></td>
+    </tr>
+
+    <tr>
+        <td>Città</td>
+        <td id="r_citta"></td>
+    </tr>
+
+    <tr>
+        <td>Gestore telefonico</td>
+        <td id="r_gestore"></td>
+    </tr>
+
+    <tr>
+        <td>Numero dispositivo</td>
+        <td id="r_tel"></td>
+    </tr>
+
+    <tr>
+        <td>Marca</td>
+        <td id="r_marca"></td>
+    </tr>
+
+    <tr>
+        <td>Modello</td>
+        <td id="r_modello"></td>
+    </tr>
+
+    <tr>
+        <td>Descrizione problema</td>
+		<td id="r_descrizione"></td>
+	</tr>
+
+	<tr>
+		<td>Recapito contatto</td>
+		<td id="r_contatto"></td>
+	</tr>
+	</table>
+</div>
+
+<script>
+	const nome = document.getElementById("nome").value;
+	const cognome = document.getElementById("cognome").value;
+	const codice = document.getElementById("codice").value;
+	const citta = document.getElementById("citta").value;
+	const gestore = document.getElementById("gestore").value;
+	const tel = document.getElementById("numero").value;
+	const marca = document.getElementById("marca").value;
+	const modello = document.getElementById("modello").value;
+	const descrizione = document.getElementById("descrizione").value;
+	const contatto = document.getElementById("contatto").value;
+
+	document.getElementById("Genera ricevuta").addEventListener("click");
+</script>
 </body>
 </html>
