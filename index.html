@@ -7,18 +7,22 @@
 		body {
 		    background-color: white;
 		    font-family: Arial, sans-serif;
+		    margin: 20px;
 		}
 
+		/* Contenitore principale */
 		#contenitore {
-		    display: flex;
-		    justify-content: center;
+		    display: block;
 		    width: 100%;
 		}
 
+		/* Form */
 		#form {
 		    text-align: center;
+		    margin: auto;
 		}
 
+		/* Tabelle del form */
 		#tabelle {
 		    display: flex;
 		    justify-content: center;
@@ -28,6 +32,7 @@
 		    border-collapse: collapse;
 		}
 
+		/* Etichette e campi */
 		th {
 		    display: flex;
 		    flex-direction: column;
@@ -45,6 +50,36 @@
 
 		textarea.casella {
 		    resize: vertical;
+		}
+
+		/* Pulsanti */
+		button {
+		    width: 150px;
+		    height: 35px;
+		    padding: 5px;
+		    display: block;
+		    margin: 15px auto;
+		    cursor: pointer;
+		}
+
+		/* Ricevuta */
+		#ricevuta {
+		    width: 650px;
+		    margin: 30px auto;
+		    padding: 20px;
+		    box-sizing: border-box;
+		    text-align: center;
+		}
+
+		#ricevuta table {
+		    width: 100%;
+		    border-collapse: collapse;
+		}
+
+		#ricevuta td {
+		    border: 1px solid black;
+		    padding: 10px;
+		    text-align: left;
 		}
 	</style>
 </head>
@@ -149,20 +184,54 @@
 		<td>Recapito contatto</td>
 		<td id="r_contatto"></td>
 	</tr>
-	</table>
+</table>
 </div>
-
+</div>
 <script>
-	const nome = document.getElementById("nome").value;
-	const cognome = document.getElementById("cognome").value;
-	const codice = document.getElementById("codice").value;
-	const citta = document.getElementById("citta").value;
-	const gestore = document.getElementById("gestore").value;
-	const tel = document.getElementById("numero").value;
-	const marca = document.getElementById("marca").value;
-	const modello = document.getElementById("modello").value;
-	const descrizione = document.getElementById("descrizione").value;
-	const contatto = document.getElementById("contatto").value;
+	const form = document.getElementById("form");
+
+	const ricevuta = document.getElementById("ricevuta");
+
+	form.addEventListener("submit", function(event) {
+		
+		event.preventDefault();
+
+	    // Acquisizione dati dal form
+	    let nome = document.getElementById("nome").value;
+	    let cognome = document.getElementById("cognome").value;
+	    let codice = document.getElementById("codice").value;
+	    let citta = document.getElementById("citta").value;
+	    let gestore = document.getElementById("gestore").value;
+	    let tel = document.getElementById("tel").value;
+	    let marca = document.getElementById("marca").value;
+	    let modello = document.getElementById("modello").value;
+	    let descrizione = document.getElementById("descrizione").value;
+	    let contatto = document.getElementById("contatto").value;
+
+	    // Se il recapito è vuoto, usa il numero del dispositivo
+	    if (contatto == "") {
+	        contatto = tel;
+	    }
+
+	    // Trasferimento dei dati nella ricevuta
+	    document.getElementById("r_nome").innerHTML = nome;
+	    document.getElementById("r_cognome").innerHTML = cognome;
+	    document.getElementById("r_codice").innerHTML = codice;
+	    document.getElementById("r_citta").innerHTML = citta;
+	    document.getElementById("r_gestore").innerHTML = gestore;
+	    document.getElementById("r_tel").innerHTML = tel;
+	    document.getElementById("r_marca").innerHTML = marca;
+	    document.getElementById("r_modello").innerHTML = modello;
+	    document.getElementById("r_descrizione").innerHTML = descrizione;
+	    document.getElementById("r_contatto").innerHTML = contatto;
+
+	    // Nasconde il form
+	    form.style.display = "none";
+
+	    // Visualizza la ricevuta
+	    ricevuta.style.display = "block";
+
+	});
 
 	document.getElementById("Genera ricevuta").addEventListener("click");
 </script>
